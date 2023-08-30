@@ -26,7 +26,10 @@ public class AirportController {
         airportService.delete(id);
     }
 
-
+    @PutMapping("/{id}")
+    public AirportDto update(@PathVariable Long id,@RequestBody CreateAirportRequest artist){
+        return airportService.update(id,artist);
+    }
 
 
 }
