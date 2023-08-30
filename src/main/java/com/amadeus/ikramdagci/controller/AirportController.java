@@ -8,6 +8,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collection;
+import java.util.Set;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/airport")
@@ -19,6 +22,16 @@ public class AirportController {
     public AirportDto add(CreateAirportRequest request){
         return airportService.create(request);
     }
+    @GetMapping
+    public Collection<AirportDto> findAll(){
+        return airportService.findAll();
+    }
+
+    @GetMapping("/{id}")
+    public AirportDto findById(@PathVariable Long id){
+        return airportService.findById(id);
+    }
+
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
