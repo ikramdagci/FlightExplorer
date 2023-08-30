@@ -1,1 +1,17 @@
-
+spring:
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: 'false'
+      javax:
+        persistence:
+          validation:
+            mode: none
+    hibernate:
+      ddl-auto: update
+    show-sql: 'true'
+  datasource:
+    password: 'postgres'
+    username: postgres
+    url: jdbc:postgresql://localhost:5432/flights-db
