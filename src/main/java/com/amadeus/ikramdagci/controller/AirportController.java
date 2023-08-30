@@ -4,9 +4,8 @@ import com.amadeus.ikramdagci.domain.dto.CreateAirportRequest;
 import com.amadeus.ikramdagci.domain.entity.Airport;
 import com.amadeus.ikramdagci.domain.service.AirportService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -18,6 +17,13 @@ public class AirportController {
     @PostMapping("/add")
     public Airport add(CreateAirportRequest request){
         return airportService.create(request);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+//    @PreAuthorize("hasRole('ADMIN')")
+    public void delete(@PathVariable Long id){
+        airportService.delete(id);
     }
 
 
