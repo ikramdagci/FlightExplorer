@@ -1,5 +1,6 @@
 package com.amadeus.ikramdagci.domain.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import lombok.*;
@@ -14,6 +15,7 @@ import lombok.*;
 public class Airport extends BaseEntity{
 
     private String city;
+    @Column(unique = true)
     private String code;
 
 }

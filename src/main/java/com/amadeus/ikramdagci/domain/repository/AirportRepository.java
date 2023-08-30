@@ -8,4 +8,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface AirportRepository extends JpaRepository<Airport,Long> {
 
+    Airport findByCode(String code);
+
 }

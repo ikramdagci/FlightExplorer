@@ -4,7 +4,6 @@ import com.amadeus.ikramdagci.domain.dto.AirportDto;
 import com.amadeus.ikramdagci.domain.dto.CreateAirportRequest;
 import com.amadeus.ikramdagci.domain.entity.Airport;
 import com.amadeus.ikramdagci.domain.ex.AirportNotFoundException;
-import com.amadeus.ikramdagci.domain.ex.MyResourceNotFoundException;
 import com.amadeus.ikramdagci.domain.repository.AirportRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -29,7 +28,7 @@ public class AirportService {
     }
 
     public AirportDto update(final Long id, final CreateAirportRequest request) {
-        final Airport airport = airportRepository.findById(id).orElseThrow(() -> new AirportNotFoundException(id));
+        final Airport airport = fetchAirport(id);
         airport.setCity(request.getCity());
         airport.setCode(request.getCode());
         return mapAirportEntity2Dto(airportRepository.save(airport));
@@ -40,7 +39,15 @@ public class AirportService {
     }
 
     public AirportDto findById(final Long id) {
-        final Airport airport = airportRepository.findById(id).orElseThrow(() -> new AirportNotFoundException(id));
+        final Airport airport = fetchAirport(id);
         return mapAirportEntity2Dto(airport);
+    }
+
+    protected Airport fetchAirport(final Long id) {
+        return airportRepository.findById(id).orElseThrow(() -> new AirportNotFoundException(id));
+    }
+
+    protected Airport fetchAirport(final String code){
+        return airportRepository.findByCode(code);
     }
 }

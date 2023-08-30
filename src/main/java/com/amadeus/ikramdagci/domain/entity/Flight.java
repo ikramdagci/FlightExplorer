@@ -2,12 +2,18 @@ package com.amadeus.ikramdagci.domain.entity;
 
 import com.amadeus.ikramdagci.converter.MonetaryAmountConverter;
 import jakarta.persistence.*;
+import lombok.*;
 
 import javax.money.MonetaryAmount;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "t_flight")
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Flight extends BaseEntity{
 
     @ManyToOne
