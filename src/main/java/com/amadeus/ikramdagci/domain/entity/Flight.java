@@ -1,8 +1,9 @@
 package com.amadeus.ikramdagci.domain.entity;
 
+import com.amadeus.ikramdagci.converter.MonetaryAmountConverter;
 import jakarta.persistence.*;
 
-import java.math.BigDecimal;
+import javax.money.MonetaryAmount;
 import java.time.LocalDateTime;
 
 @Entity
@@ -15,7 +16,8 @@ public class Flight extends BaseEntity{
     private Airport arrivalAirport;
     private LocalDateTime departureDateTime;
     private LocalDateTime arrivalDateTime;
-    private BigDecimal price;
+    @Convert(converter = MonetaryAmountConverter.class)
+    private MonetaryAmount price;
 
 
 }
