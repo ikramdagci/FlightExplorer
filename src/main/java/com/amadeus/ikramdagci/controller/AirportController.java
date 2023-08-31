@@ -1,15 +1,14 @@
 package com.amadeus.ikramdagci.controller;
 
-import com.amadeus.ikramdagci.domain.dto.AirportDto;
-import com.amadeus.ikramdagci.domain.dto.CreateAirportRequest;
-import com.amadeus.ikramdagci.domain.entity.Airport;
+import com.amadeus.ikramdagci.domain.model.dto.AirportDto;
+import com.amadeus.ikramdagci.domain.model.request.CreateAirportRequest;
 import com.amadeus.ikramdagci.domain.service.AirportService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
-import java.util.Set;
 
 @RestController
 @RequiredArgsConstructor
@@ -28,6 +27,7 @@ public class AirportController {
     }
 
     @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
     public AirportDto findById(@PathVariable Long id){
         return airportService.findById(id);
     }
@@ -40,7 +40,8 @@ public class AirportController {
     }
 
     @PutMapping("/{id}")
-    public AirportDto update(@PathVariable Long id,@RequestBody CreateAirportRequest artist){
+    @ResponseStatus(HttpStatus.CREATED)
+    public AirportDto update(@PathVariable Long id,@Valid @RequestBody CreateAirportRequest artist){
         return airportService.update(id,artist);
     }
 

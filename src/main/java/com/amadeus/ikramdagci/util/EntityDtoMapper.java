@@ -1,19 +1,15 @@
 package com.amadeus.ikramdagci.util;
 
-import com.amadeus.ikramdagci.domain.dto.AirportDto;
-import com.amadeus.ikramdagci.domain.dto.FlightDto;
-import com.amadeus.ikramdagci.domain.dto.MonetaryWrapper;
+import com.amadeus.ikramdagci.domain.model.dto.AirportDto;
+import com.amadeus.ikramdagci.domain.model.dto.FlightDto;
+import com.amadeus.ikramdagci.domain.model.MonetaryAmountWrapper;
 import com.amadeus.ikramdagci.domain.entity.Airport;
 import com.amadeus.ikramdagci.domain.entity.BaseEntity;
 import com.amadeus.ikramdagci.domain.entity.Flight;
-import org.springdoc.core.converters.models.MonetaryAmount;
 
-import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Optional;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 public final class EntityDtoMapper {
     private EntityDtoMapper(){}
@@ -43,7 +39,7 @@ public final class EntityDtoMapper {
                         .arrivalAirport(mapAirportEntity2Dto(it.getArrivalAirport()))
                         .departureDateTime(it.getDepartureDateTime())
                         .arrivalDateTime(it.getArrivalDateTime())
-                        .price(new MonetaryWrapper(it.getPrice().getNumber().numberValue(BigDecimal.class),it.getPrice().getCurrency().getCurrencyCode()))
+                        .price(MonetaryAmountWrapper.from(it.getPrice()))
                         .build())
                 .orElse(null);
     }

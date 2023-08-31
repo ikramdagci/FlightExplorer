@@ -1,4 +1,4 @@
-package com.amadeus.ikramdagci.domain.dto;
+package com.amadeus.ikramdagci.domain.model.request;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;

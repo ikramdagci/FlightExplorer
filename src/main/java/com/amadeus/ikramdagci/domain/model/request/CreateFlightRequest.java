@@ -1,6 +1,7 @@
-package com.amadeus.ikramdagci.domain.dto;
+package com.amadeus.ikramdagci.domain.model.request;
 
 
+import com.amadeus.ikramdagci.domain.model.MonetaryAmountWrapper;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import java.time.LocalDateTime;
@@ -15,6 +16,6 @@ public class CreateFlightRequest {
     private LocalDateTime departureDateTime;
     @Schema(example = "2023-08-31T02:15")
     private LocalDateTime arrivalDateTime;
-    private MonetaryWrapper price;
+    private MonetaryAmountWrapper price;
 
 }

@@ -1,7 +1,7 @@
 package com.amadeus.ikramdagci.controller;
 
-import com.amadeus.ikramdagci.domain.dto.CreateFlightRequest;
-import com.amadeus.ikramdagci.domain.dto.FlightDto;
+import com.amadeus.ikramdagci.domain.model.request.CreateFlightRequest;
+import com.amadeus.ikramdagci.domain.model.dto.FlightDto;
 import com.amadeus.ikramdagci.domain.service.FlightService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

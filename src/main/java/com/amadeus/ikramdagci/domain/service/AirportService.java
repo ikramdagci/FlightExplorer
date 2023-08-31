@@ -1,7 +1,7 @@
 package com.amadeus.ikramdagci.domain.service;
 
-import com.amadeus.ikramdagci.domain.dto.AirportDto;
-import com.amadeus.ikramdagci.domain.dto.CreateAirportRequest;
+import com.amadeus.ikramdagci.domain.model.dto.AirportDto;
+import com.amadeus.ikramdagci.domain.model.request.CreateAirportRequest;
 import com.amadeus.ikramdagci.domain.entity.Airport;
 import com.amadeus.ikramdagci.domain.ex.AirportNotFoundException;
 import com.amadeus.ikramdagci.domain.repository.AirportRepository;
@@ -9,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
-import java.util.Set;
 
 import static com.amadeus.ikramdagci.util.EntityDtoMapper.mapAirportEntity2Dto;
 

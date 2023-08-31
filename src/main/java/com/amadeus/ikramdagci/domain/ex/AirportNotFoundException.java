@@ -6,6 +6,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ResponseStatus(value = HttpStatus.NOT_FOUND)
 public class AirportNotFoundException extends RuntimeException {
     public AirportNotFoundException(final Long id) {
-        super("Airport with id:" + id + " not found");
+        super("Airport not found with id: " + id);
     }
 }

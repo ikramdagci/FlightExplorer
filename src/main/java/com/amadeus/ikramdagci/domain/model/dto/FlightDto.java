@@ -1,9 +1,9 @@
-package com.amadeus.ikramdagci.domain.dto;
+package com.amadeus.ikramdagci.domain.model.dto;
 
+import com.amadeus.ikramdagci.domain.model.MonetaryAmountWrapper;
 import lombok.Builder;
 
 
-import javax.money.MonetaryAmount;
 import java.time.LocalDateTime;
 
 @Builder
@@ -13,5 +13,5 @@ public record FlightDto(
         AirportDto arrivalAirport,
         LocalDateTime departureDateTime,
         LocalDateTime arrivalDateTime,
-        MonetaryWrapper price
+        MonetaryAmountWrapper price
 ) {}

@@ -1,4 +1,4 @@
-package com.amadeus.ikramdagci.domain.dto;
+package com.amadeus.ikramdagci.domain.model.dto;
 
 import lombok.Builder;
 
