@@ -1,5 +1,6 @@
 package com.amadeus.ikramdagci.domain.service;
 
+import com.amadeus.ikramdagci.domain.ex.FlightNotFoundException;
 import com.amadeus.ikramdagci.domain.model.request.CreateFlightRequest;
 import com.amadeus.ikramdagci.domain.model.dto.FlightDto;
 import com.amadeus.ikramdagci.domain.entity.Airport;
@@ -38,4 +39,8 @@ public class FlightService {
     }
 
 
+    public FlightDto findById(final Long id) {
+        final Flight flight = flightRepository.findById(id).orElseThrow(() -> new FlightNotFoundException(id));
+        return mapFlightEntity2Dto(flight);
+    }
 }

@@ -26,4 +26,10 @@ public class FlightController {
     public Collection<FlightDto> findAll(){
         return flightService.findAll();
     }
+
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public FlightDto findById(@PathVariable Long id){
+        return flightService.findById(id);
+    }
 }
