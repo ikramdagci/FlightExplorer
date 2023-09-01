@@ -1,6 +1,8 @@
 package com.amadeus.ikramdagci.domain.service;
 
 import com.amadeus.ikramdagci.domain.ex.FlightNotFoundException;
+import com.amadeus.ikramdagci.domain.model.MonetaryAmountWrapper;
+import com.amadeus.ikramdagci.domain.model.dto.AirportDto;
 import com.amadeus.ikramdagci.domain.model.request.CreateFlightRequest;
 import com.amadeus.ikramdagci.domain.model.dto.FlightDto;
 import com.amadeus.ikramdagci.domain.entity.Airport;
@@ -40,7 +42,7 @@ public class FlightService {
 
 
     public FlightDto findById(final Long id) {
-        final Flight flight = flightRepository.findById(id).orElseThrow(() -> new FlightNotFoundException(id));
+        final Flight flight = fetchFlight(id);
         return mapFlightEntity2Dto(flight);
     }
 
@@ -51,4 +53,17 @@ public class FlightService {
     }
 
 
+    public FlightDto update(final Long id, final CreateFlightRequest request) {
+        final Flight flight = fetchFlight(id);
+        flight.setDepartureAirport(airportService.fetchAirport(request.getDepartureAirportCode()));
+        flight.setDepartureDateTime(request.getDepartureDateTime());
+        flight.setArrivalAirport(airportService.fetchAirport(request.getArrivalAirportCode()));
+        flight.setArrivalDateTime(request.getArrivalDateTime());
+        flight.setPrice(request.getPrice().monetaryAmount());
+        return mapFlightEntity2Dto(flightRepository.save(flight));
+    }
+
+    private Flight fetchFlight(final Long id) {
+        return flightRepository.findById(id).orElseThrow(() -> new FlightNotFoundException(id));
+    }
 }

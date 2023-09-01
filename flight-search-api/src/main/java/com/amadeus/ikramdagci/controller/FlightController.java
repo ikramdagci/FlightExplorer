@@ -1,8 +1,10 @@
 package com.amadeus.ikramdagci.controller;
 
+import com.amadeus.ikramdagci.domain.model.dto.AirportDto;
 import com.amadeus.ikramdagci.domain.model.request.CreateFlightRequest;
 import com.amadeus.ikramdagci.domain.model.dto.FlightDto;
 import com.amadeus.ikramdagci.domain.service.FlightService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -37,6 +39,12 @@ public class FlightController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable Long id) {
         flightService.delete(id);
+    }
+
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public FlightDto update(@PathVariable Long id,@Valid @RequestBody CreateFlightRequest request){
+        return flightService.update(id,request);
     }
 
 }

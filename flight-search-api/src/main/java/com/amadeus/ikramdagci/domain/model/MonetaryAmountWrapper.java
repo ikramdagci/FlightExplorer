@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.javamoney.moneta.Money;
 
 import javax.money.MonetaryAmount;
 import java.math.BigDecimal;
@@ -41,6 +42,10 @@ public class MonetaryAmountWrapper {
                 monetaryAmount.getNumber().numberValue(BigDecimal.class),
                 monetaryAmount.getCurrency().getCurrencyCode()
         );
+    }
+
+    public MonetaryAmount monetaryAmount(){
+        return Money.parse(toString());
     }
 
     /**
