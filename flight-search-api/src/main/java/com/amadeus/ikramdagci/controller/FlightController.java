@@ -32,4 +32,11 @@ public class FlightController {
     public FlightDto findById(@PathVariable Long id){
         return flightService.findById(id);
     }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable Long id) {
+        flightService.delete(id);
+    }
+
 }
