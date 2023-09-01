@@ -9,10 +9,10 @@ spring:
           validation:
             mode: none
     hibernate:
-      ddl-auto: create
+      ddl-auto: none
     show-sql: 'true'
   datasource:
     password: 'postgres'
     username: postgres
-    url: jdbc:postgresql://localhost:5432/flights
+    url: jdbc:postgresql://postgresqldb:5432/flights
 

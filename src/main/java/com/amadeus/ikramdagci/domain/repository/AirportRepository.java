@@ -10,4 +10,8 @@ public interface AirportRepository extends JpaRepository<Airport,Long> {
 
     Airport findByCode(String code);
 
+    default void executeNativeQuery(String query){
+
+    }
+
 }
