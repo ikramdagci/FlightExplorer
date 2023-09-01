@@ -10,19 +10,23 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import java.time.ZonedDateTime;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/flight/mockv2")
 public class MyController {
 
-    private final String expressAppUrl = "http://mock-flight-api:3000";
+    private final String expressAppUrl = "http://localhost:3000";
 
     @GetMapping
-    public ResponseEntity<CreateFlightRequest[]> makeHttpRequest() {
+    public ResponseEntity<List<CreateFlightRequest>> makeHttpRequest() {
         RestTemplate restTemplate = new RestTemplate();
-        return restTemplate.getForEntity(expressAppUrl + "/flights/20", CreateFlightRequest[].class);
+        final ResponseEntity<CreateFlightRequest[]> responseEntity = restTemplate.getForEntity(expressAppUrl + "/flights/20", CreateFlightRequest[].class);
+        final List<CreateFlightRequest> flightRequests = Arrays.asList(Objects.requireNonNull(responseEntity.getBody()));
+        return ResponseEntity.ok(flightRequests);
     }
 
 }

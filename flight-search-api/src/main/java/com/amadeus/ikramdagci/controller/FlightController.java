@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collection;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/flight")
@@ -19,4 +21,9 @@ public class FlightController {
         return flightService.create(request);
     }
 
+    @GetMapping
+    @ResponseStatus(HttpStatus.OK)
+    public Collection<FlightDto> findAll(){
+        return flightService.findAll();
+    }
 }

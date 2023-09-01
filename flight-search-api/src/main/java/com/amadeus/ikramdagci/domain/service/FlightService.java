@@ -9,6 +9,9 @@ import lombok.RequiredArgsConstructor;
 import org.javamoney.moneta.Money;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
+import java.util.List;
+
 import static com.amadeus.ikramdagci.util.EntityDtoMapper.mapFlightEntity2Dto;
 
 @Service
@@ -29,5 +32,10 @@ public class FlightService {
                 .build();
         return mapFlightEntity2Dto(flightRepository.save(flight));
     }
+
+    public Collection<FlightDto> findAll() {
+        return mapFlightEntity2Dto(flightRepository.findAll());
+    }
+
 
 }

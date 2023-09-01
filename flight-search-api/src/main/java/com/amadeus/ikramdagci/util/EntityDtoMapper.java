@@ -10,6 +10,7 @@ import com.amadeus.ikramdagci.domain.entity.Flight;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public final class EntityDtoMapper {
     private EntityDtoMapper(){}
@@ -42,6 +43,12 @@ public final class EntityDtoMapper {
                         .price(MonetaryAmountWrapper.from(it.getPrice()))
                         .build())
                 .orElse(null);
+    }
+
+    public static Collection<FlightDto> mapFlightEntity2Dto(final Collection<Flight> flights) {
+        return Optional.ofNullable(flights)
+                .map(all -> all.stream().map(EntityDtoMapper::mapFlightEntity2Dto).toList())
+                .orElse(Collections.emptyList());
     }
 
 }
