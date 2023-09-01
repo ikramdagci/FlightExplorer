@@ -1,0 +1,29 @@
+version: '3.1'
+services:
+  flight-search-api:
+    container_name: docker-flight-search-api
+    image: docker-springboot-postgresql
+    build:
+      context: ./flight-search-api
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgresqldb
+  postgresqldb:
+    image: postgres
+    ports:
+      - "5433:5432"
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=flights
+    volumes:
+      - ./init_db.sql:/docker-entrypoint-initdb.d/init_db.sql # Bu satırı ekledik
+  mock-flight-api:
+    container_name: docker-mock-flight-api
+    build:
+      context: ./mock-flight-api # Express.js uygulamanızın bulunduğu dizini belirtin
+    ports:
+      - "3000:3000"
+    depends_on:
+      - flight-search-api
