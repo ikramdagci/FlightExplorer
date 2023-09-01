@@ -47,6 +47,6 @@ public class AirportService {
     }
 
     protected Airport fetchAirport(final String code){
-        return airportRepository.findByCode(code);
+        return airportRepository.findByCode(code).orElseThrow(() -> new AirportNotFoundException(code));
     }
 }

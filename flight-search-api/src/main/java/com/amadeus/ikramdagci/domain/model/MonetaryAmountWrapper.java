@@ -2,6 +2,8 @@ package com.amadeus.ikramdagci.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,10 +27,12 @@ public class MonetaryAmountWrapper {
 
     @JsonProperty("amount")
     @Schema(example = "99.96")
+    @DecimalMin(value = "0", inclusive = true)
     private BigDecimal amount;
 
     @JsonProperty("currency")
     @Schema(example = "USD")
+    @NotEmpty
     private String currency;
 
     /**

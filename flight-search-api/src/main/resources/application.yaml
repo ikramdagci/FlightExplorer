@@ -4,10 +4,6 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: 'false'
-      javax:
-        persistence:
-          validation:
-            mode: none
     hibernate:
       ddl-auto: none
     show-sql: 'true'
@@ -15,4 +11,5 @@ spring:
     password: 'postgres'
     username: postgres
     url: jdbc:postgresql://localhost:5432/flights
+
 

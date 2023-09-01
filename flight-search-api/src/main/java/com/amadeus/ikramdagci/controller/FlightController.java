@@ -1,6 +1,5 @@
 package com.amadeus.ikramdagci.controller;
 
-import com.amadeus.ikramdagci.domain.model.dto.AirportDto;
 import com.amadeus.ikramdagci.domain.model.request.CreateFlightRequest;
 import com.amadeus.ikramdagci.domain.model.dto.FlightDto;
 import com.amadeus.ikramdagci.domain.service.FlightService;
@@ -19,7 +18,7 @@ public class FlightController {
     private final FlightService flightService;
     @PostMapping("/add")
     @ResponseStatus(HttpStatus.CREATED)
-    public FlightDto add(@RequestBody CreateFlightRequest request){
+    public FlightDto add(@RequestBody @Valid CreateFlightRequest request){
         return flightService.create(request);
     }
 
