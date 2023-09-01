@@ -5,13 +5,9 @@ import com.amadeus.ikramdagci.domain.model.dto.FlightDto;
 import com.amadeus.ikramdagci.domain.entity.Airport;
 import com.amadeus.ikramdagci.domain.entity.Flight;
 import com.amadeus.ikramdagci.domain.repository.FlightRepository;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.javamoney.moneta.Money;
 import org.springframework.stereotype.Service;
-
-import java.time.ZonedDateTime;
 
 import static com.amadeus.ikramdagci.util.EntityDtoMapper.mapFlightEntity2Dto;
 
@@ -31,7 +27,6 @@ public class FlightService {
                 .arrivalDateTime(request.getArrivalDateTime())
                 .price(Money.parse(request.getPrice().toString()))
                 .build();
-
         return mapFlightEntity2Dto(flightRepository.save(flight));
     }
 
