@@ -16,4 +16,6 @@ mock:
   flight:
     api:
       url: http://mock-flight-api:3000
+      fetch:
+        count: 50
 

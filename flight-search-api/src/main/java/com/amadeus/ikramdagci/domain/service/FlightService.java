@@ -27,20 +27,12 @@ public class FlightService {
 //        validate
         final Airport departureAirport = airportService.fetchAirport(request.getDepartureAirportCode());
         final Airport arrivalAirport = airportService.fetchAirport(request.getArrivalAirportCode());
-        final Flight flight = Flight.builder()
-                .departureAirport(departureAirport)
-                .arrivalAirport(arrivalAirport)
-                .departureDateTime(request.getDepartureDateTime())
-                .arrivalDateTime(request.getArrivalDateTime())
-                .price(Money.parse(request.getPrice().toString()))
-                .build();
+        final Flight flight = buildFlightEntity(request, departureAirport, arrivalAirport);
         return mapFlightEntity2Dto(flightRepository.save(flight));
     }
-
     public Collection<FlightDto> findAll() {
         return mapFlightEntity2Dto(flightRepository.findAll());
     }
-
 
     public FlightDto findById(final Long id) {
         final Flight flight = fetchFlight(id);
@@ -67,4 +59,16 @@ public class FlightService {
     private Flight fetchFlight(final Long id) {
         return flightRepository.findById(id).orElseThrow(() -> new FlightNotFoundException(id));
     }
+
+
+    private Flight buildFlightEntity(final CreateFlightRequest request, final Airport departureAirport, final Airport arrivalAirport) {
+        return Flight.builder()
+                .departureAirport(departureAirport)
+                .arrivalAirport(arrivalAirport)
+                .departureDateTime(request.getDepartureDateTime())
+                .arrivalDateTime(request.getArrivalDateTime())
+                .price(Money.parse(request.getPrice().toString()))
+                .build();
+    }
+
 }
