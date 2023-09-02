@@ -3,24 +3,32 @@ const chance = require('chance').Chance();
 const app = express();
 const port = 3000;
 
-// Sabit bir havaalanı kodları listesi
 const airportCodes = ['IST', 'ESB', 'ADB', 'AYT', 'ADA', 'JFK', 'LAX', 'LHR', 'DXB', 'HKG', 'CDG', 'SIN', 'SAW', 'GZP', 'BJV', 'DLM', 'TZX', 'ORD', 'HND', 'PEK', 'PVG', 'FRA', 'AMS', 'YYZ', 'BOM', 'SYD', 'ICN', 'SFO', 'MEX'];
 
 const getRandomAirportCodes = (count) => {
-  const uniqueCodes = Array.from(new Set(airportCodes)); // Aynı kodları filtrele
-  const randomCodes = chance.pickset(uniqueCodes, count); // Belirli sayıda rastgele kod seç
+  const uniqueCodes = Array.from(new Set(airportCodes)); 
+  const randomCodes = chance.pickset(uniqueCodes, count); 
   return randomCodes;
+};
+
+const generateRandomDateInRange = () => {
+  const now = new Date();
+  const startDate = new Date(now);
+  const endDate = new Date(now);
+  endDate.setDate(now.getDate() + (365 * 3)); 
+  const randomDate = chance.date({ min: startDate, max: endDate });
+  return randomDate;
 };
 
 const generateFlightData = () => {
   const [departureAirportCode, arrivalAirportCode] = getRandomAirportCodes(2);
 
-  const departureDateTime = chance.date();
+  const departureDateTime = generateRandomDateInRange();
   const maxArrivalDateTime = new Date(departureDateTime);
   maxArrivalDateTime.setHours(departureDateTime.getHours() + 24);
 
-  const arrivalDateTime = chance.date({ min: departureDateTime, max: maxArrivalDateTime });
-
+  const arrivalDateTime = new Date(departureDateTime);
+  arrivalDateTime.setHours(departureDateTime.getHours() + chance.integer({ min: 1, max: 24 })); // 1 ila 24 saat arası bir saat ekleyin
   return {
     departureAirportCode,
     arrivalAirportCode,
@@ -53,5 +61,5 @@ app.get('/flights/:numberOfFlights', (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`Uygulama http://localhost:${port} adresinde çalışıyor.`);
+  console.log(`Running on http://localhost:${port}`);
 });
