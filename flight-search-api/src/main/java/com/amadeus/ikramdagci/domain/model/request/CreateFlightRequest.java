@@ -20,10 +20,10 @@ public class CreateFlightRequest {
     @Schema(example = "JFK")
     @NotEmpty
     private String arrivalAirportCode;
-    @Schema(example = "2023-09-01T15:30")
+    @Schema(example = "2024-10-05T15:30")
     @Future
     private LocalDateTime departureDateTime;
-    @Schema(example = "2023-09-01T17:30")
+    @Schema(example = "2024-10-05T17:30")
     @Future
     private LocalDateTime arrivalDateTime;
     @Valid

@@ -12,4 +12,8 @@ public class ErrorResponse<T> {
     public ErrorResponse(final T message) {
         this.message = message;
     }
+
+    public static <T> ErrorResponse<T>  of(T message){
+        return new ErrorResponse<>(message);
+    }
 }

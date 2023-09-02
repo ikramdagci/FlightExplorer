@@ -9,7 +9,7 @@ import static java.lang.annotation.ElementType.*;
 
 @Documented
 @Constraint(validatedBy = FlightArrivalNotBeforeDepartureValidator.class)
-@Target({ TYPE, FIELD, ANNOTATION_TYPE })
+@Target({ TYPE })
 @Retention(RetentionPolicy.RUNTIME)
 public @interface FlightArrivalNotBeforeDeparture {
     String message() default "The flight's arrival date must not be before the departure date.";

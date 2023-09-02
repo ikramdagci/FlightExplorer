@@ -18,9 +18,4 @@ public class AppConfig {
         return objectMapper;
     }
 
-//    @Bean
-//    public LocalValidatorFactoryBean validator() {
-//        return new LocalValidatorFactoryBean();
-//    }
-
 }
