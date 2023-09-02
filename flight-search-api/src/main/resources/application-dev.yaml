@@ -6,14 +6,13 @@ spring:
         format_sql: 'false'
     hibernate:
       ddl-auto: none
-    show-sql: 'false'
+    show-sql: 'true'
   datasource:
     password: 'postgres'
     username: postgres
-    url: jdbc:postgresql://postgresqldb:5432/flights
+    url: jdbc:postgresql://localhost:5432/flights
 
 mock:
   flight:
     api:
-      url: http://mock-flight-api:3000
-
+      url: http://localhost:3000
