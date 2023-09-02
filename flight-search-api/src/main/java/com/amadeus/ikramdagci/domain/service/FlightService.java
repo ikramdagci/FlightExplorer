@@ -24,6 +24,7 @@ public class FlightService {
     private final FlightRepository flightRepository;
     private final AirportService airportService;
     public FlightDto create(final CreateFlightRequest request) {
+//        validate
         final Airport departureAirport = airportService.fetchAirport(request.getDepartureAirportCode());
         final Airport arrivalAirport = airportService.fetchAirport(request.getArrivalAirportCode());
         final Flight flight = Flight.builder()

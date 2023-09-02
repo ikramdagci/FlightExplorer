@@ -27,7 +27,7 @@ public class MonetaryAmountWrapper {
 
     @JsonProperty("amount")
     @Schema(example = "99.96")
-    @DecimalMin(value = "0", inclusive = true)
+    @DecimalMin(value = "0", inclusive = false)
     private BigDecimal amount;
 
     @JsonProperty("currency")
