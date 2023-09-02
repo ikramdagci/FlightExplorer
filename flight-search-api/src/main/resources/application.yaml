@@ -19,3 +19,7 @@ mock:
       fetch:
         count: 50
 
+logging:
+  level:
+    org.javamoney.moneta.Money: ERROR
+

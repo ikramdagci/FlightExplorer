@@ -28,7 +28,7 @@ const generateFlightData = () => {
     arrivalDateTime: arrivalDateTime.toISOString(),
     price: {
       amount: chance.floating({ min: 50, max: 500, fixed: 2 }),
-      currency: chance.pickone(['USD', 'EUR', 'GBP', 'TL'])
+      currency: chance.pickone(['USD', 'EUR', 'GBP', 'TRY'])
     }
   };
 };

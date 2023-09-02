@@ -1,13 +1,13 @@
 package com.amadeus.ikramdagci.domain.service;
 
-import com.amadeus.ikramdagci.domain.ex.FlightNotFoundException;
-import com.amadeus.ikramdagci.domain.model.MonetaryAmountWrapper;
-import com.amadeus.ikramdagci.domain.model.dto.AirportDto;
-import com.amadeus.ikramdagci.domain.model.request.CreateFlightRequest;
-import com.amadeus.ikramdagci.domain.model.dto.FlightDto;
 import com.amadeus.ikramdagci.domain.entity.Airport;
 import com.amadeus.ikramdagci.domain.entity.Flight;
+import com.amadeus.ikramdagci.domain.ex.FlightNotFoundException;
+import com.amadeus.ikramdagci.domain.model.CreateFlightPayload;
+import com.amadeus.ikramdagci.domain.model.dto.FlightDto;
+import com.amadeus.ikramdagci.domain.model.request.CreateFlightRequest;
 import com.amadeus.ikramdagci.domain.repository.FlightRepository;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.javamoney.moneta.Money;
 import org.springframework.stereotype.Service;
@@ -23,12 +23,17 @@ public class FlightService {
 
     private final FlightRepository flightRepository;
     private final AirportService airportService;
-    public FlightDto create(final CreateFlightRequest request) {
-//        validate
+
+    public FlightDto create(final CreateFlightPayload request) {
         final Airport departureAirport = airportService.fetchAirport(request.getDepartureAirportCode());
         final Airport arrivalAirport = airportService.fetchAirport(request.getArrivalAirportCode());
         final Flight flight = buildFlightEntity(request, departureAirport, arrivalAirport);
         return mapFlightEntity2Dto(flightRepository.save(flight));
+    }
+
+    public Collection<FlightDto> create(final List<? extends CreateFlightPayload> flightPayloads){
+        final List<Flight> flights = buildFlightEntity(flightPayloads);
+        return mapFlightEntity2Dto(flightRepository.saveAll(flights));
     }
     public Collection<FlightDto> findAll() {
         return mapFlightEntity2Dto(flightRepository.findAll());
@@ -41,7 +46,7 @@ public class FlightService {
 
     public void delete(final Long id) {
         final boolean exists = flightRepository.existsById(id);
-        if(!exists) throw new FlightNotFoundException(id);
+        if (!exists) throw new FlightNotFoundException(id);
         flightRepository.deleteById(id);
     }
 
@@ -61,7 +66,7 @@ public class FlightService {
     }
 
 
-    private Flight buildFlightEntity(final CreateFlightRequest request, final Airport departureAirport, final Airport arrivalAirport) {
+    private Flight buildFlightEntity(@NotNull final CreateFlightPayload request, final Airport departureAirport, final Airport arrivalAirport) {
         return Flight.builder()
                 .departureAirport(departureAirport)
                 .arrivalAirport(arrivalAirport)
@@ -69,6 +74,16 @@ public class FlightService {
                 .arrivalDateTime(request.getArrivalDateTime())
                 .price(Money.parse(request.getPrice().toString()))
                 .build();
+    }
+
+    private List<Flight> buildFlightEntity(List<? extends CreateFlightPayload> flightPayloads) {
+        return flightPayloads.stream()
+                .map(payload -> {
+                    final Airport departureAirport = airportService.fetchAirport(payload.getDepartureAirportCode());
+                    final Airport arrivalAirport = airportService.fetchAirport(payload.getArrivalAirportCode());
+                    return buildFlightEntity(payload, departureAirport, arrivalAirport);
+                })
+                .toList();
     }
 
 }
