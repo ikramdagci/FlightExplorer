@@ -1,4 +1,4 @@
-# Flight Search API and Mock Server with Docker Compose
+# Flight Explorer
 
 This repository contains a Docker Compose configuration to run a Spring Boot-based Flight Search API alongside a Mock API Server. The Flight Search API provides flight information, and the Mock API Server simulates external dependencies or services that the main API relies on.
 
@@ -95,6 +95,37 @@ This project utilizes the following technologies:
 - Use the Flight Search API to perform flight searches and retrieve flight information. You can explore and interact with the API using [Swagger UI](http://localhost:8080/swagger-ui/index.html).
 
 - The Mock API Server can be adapted to simulate different behaviors and responses that your main API may depend on.
+
+## User Authentication
+
+This application offers two types of user authentication roles: USER and ADMIN.
+
+### Default Admin User
+
+For development purposes, an admin user can log in with the following credentials:
+
+- Email: admin@admin.com
+- Password: admin
+
+### Access Control Based on User Roles
+
+- **USER Users**: Users with the USER role can only access the `findBy` service provided by `FlightSearchController`.
+
+- **ADMIN Users**: Users with the ADMIN role can access all services.
+
+- **Unauthorized Users**: Unauthorized (not logged in) users can only make requests to the `register` and `authenticate` services provided by `AuthenticationController`.
+
+### Using JWT Tokens
+
+Upon logging in, you can use the JWT (JSON Web Token) obtained from the `register` and `authenticate` services to access other services. In the Swagger UI, there is a button in the top right corner labeled "Authorize" or "Authentication," where you can add the token as a Bearer token to HTTP requests. This token allows you to determine your access permissions.
+
+```plaintext
+Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+```
+
+After obtaining the token, you can add it to relevant HTTP requests in the Swagger UI, enabling you to perform authorization-related tasks.
+
+
 
 ## Cleanup
 

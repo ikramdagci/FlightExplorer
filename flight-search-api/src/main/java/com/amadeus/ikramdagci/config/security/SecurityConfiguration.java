@@ -1,8 +1,11 @@
 package com.amadeus.ikramdagci.config.security;
 
+import com.amadeus.ikramdagci.domain.entity.user.Role;
+import com.amadeus.ikramdagci.domain.entity.user.User;
 import com.amadeus.ikramdagci.domain.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
@@ -66,8 +69,23 @@ public class SecurityConfiguration {
         return new BCryptPasswordEncoder();
     }
 
+    @Bean
+    public CommandLineRunner commandLineRunner(){
+        return args -> {
+            final User admin = User.builder()
+                    .firstname("admin")
+                    .lastname("admin")
+                    .email("admin@admin.com")
+                    .password(passwordEncoder().encode("admin"))
+                    .role(Role.ADMIN)
+                    .build();
+            repository.save(admin);
+        };
+    }
     @Autowired
     public void setJwtAuthFilter(@Lazy final JwtAuthenticationFilter jwtAuthFilter) {
         this.jwtAuthFilter = jwtAuthFilter;
     }
+
+
 }

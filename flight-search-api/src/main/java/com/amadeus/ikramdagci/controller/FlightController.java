@@ -4,9 +4,11 @@ import com.amadeus.ikramdagci.domain.model.request.CreateFlightRequest;
 import com.amadeus.ikramdagci.domain.model.dto.FlightDto;
 import com.amadeus.ikramdagci.domain.service.FlightService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
@@ -14,6 +16,8 @@ import java.util.Collection;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/flight")
+@PreAuthorize("hasRole('ADMIN')")
+@Tag(name = "4- Flight Management - Admin Only", description = "Endpoints for managing flights (ADMIN only)")
 public class FlightController {
 
     private final FlightService flightService;

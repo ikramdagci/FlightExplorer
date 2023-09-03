@@ -4,9 +4,11 @@ import com.amadeus.ikramdagci.domain.model.dto.AirportDto;
 import com.amadeus.ikramdagci.domain.model.request.CreateAirportRequest;
 import com.amadeus.ikramdagci.domain.service.AirportService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
@@ -14,6 +16,8 @@ import java.util.Collection;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/airport")
+@PreAuthorize("hasRole('ADMIN')")
+@Tag(name = "3- Airport Management - Admin Only", description = "Endpoints for managing airports (ADMIN only)")
 public class AirportController {
 
     private final AirportService airportService;

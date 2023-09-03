@@ -15,6 +15,7 @@ import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.support.SQLExceptionSubclassTranslator;
 import org.springframework.jdbc.support.SQLExceptionTranslator;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -36,7 +37,7 @@ import java.util.Optional;
 @Slf4j
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler(value = {AirportNotFoundException.class, FlightNotFoundException.class, MonetaryParseException.class, SQLException.class})
+    @ExceptionHandler(value = {AirportNotFoundException.class, FlightNotFoundException.class, MonetaryParseException.class, SQLException.class, UsernameNotFoundException.class})
     @ResponseStatus(HttpStatus.NOT_FOUND)
     protected ErrorResponse<?> handleRuntimeExceptions(RuntimeException exception) {
         log.error(exception.getMessage());

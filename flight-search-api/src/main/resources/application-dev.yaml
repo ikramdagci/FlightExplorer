@@ -29,6 +29,9 @@ api:
       email: ikramdgc@gmail.com
       website: https://www.linkedin.com/in/ikramdagci/
   description: "manage flight-related information, including flights and airports, and perform flight searches."
+springdoc:
+  swagger-ui:
+    tagsSorter: alpha
 
 
 logging:
