@@ -22,7 +22,7 @@ public class ScheduledFlightFetchService {
     @Value("${api.flight.fetch.count}")
     private int fetchCount;
 
-//    @Scheduled(fixedDelay = 30000)
+//    @Scheduled(fixedDelay = 3000)
     public void fetchFlights() {
         final List<FlightResponse> flights = flightClient.getFlights(fetchCount);
         flightService.create(flights);

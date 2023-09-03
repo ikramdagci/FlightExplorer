@@ -3,7 +3,7 @@ const chance = require('chance').Chance();
 const app = express();
 const port = 3000;
 
-const airportCodes = ['IST', 'ESB', 'ADB', 'AYT', 'ADA', 'JFK', 'LAX', 'LHR', 'DXB', 'HKG', 'CDG', 'SIN', 'SAW', 'GZP', 'BJV', 'DLM', 'TZX', 'ORD', 'HND', 'PEK', 'PVG', 'FRA', 'AMS', 'YYZ', 'BOM', 'SYD', 'ICN', 'SFO', 'MEX'];
+const airportCodes = ['SAW', 'ESB', 'AYT', 'JFK', 'LAX', 'LHR', 'DXB', 'HND', 'CDG', 'AMS', 'SYD'];
 
 const getRandomAirportCodes = (count) => {
   const uniqueCodes = Array.from(new Set(airportCodes)); 

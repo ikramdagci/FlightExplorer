@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
@@ -19,6 +20,13 @@ public interface FlightRepository extends JpaRepository<Flight,Long> {
 
     @Query("SELECT f FROM Flight f WHERE f.arrivalAirport.id = :airportId OR f.departureAirport.id = :airportId")
     List<Flight> findIdsByAirport(@Param("airportId") Long airportId);
+
+    List<Flight> findByDepartureDateTimeBetweenAndDepartureAirportCodeAndArrivalAirportCode(
+            LocalDateTime start,
+            LocalDateTime end,
+            String departureAirportCode,
+            String arrivalAirportCode
+    );
 
 
 }

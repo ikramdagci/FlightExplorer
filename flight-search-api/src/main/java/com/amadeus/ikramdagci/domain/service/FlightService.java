@@ -20,6 +20,8 @@ import org.springframework.cache.annotation.Caching;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 
@@ -129,4 +131,23 @@ public class FlightService {
     public void setSelf(@Lazy final FlightService self) {
         this.self = self;
     }
+
+    public Collection<FlightDto> findFlights(
+            final String departureAirportCode,
+            final String arrivalAirportCode,
+            final LocalDate departureDate
+    ) {
+        airportService.fetchAirport(departureAirportCode); // check if exists
+        airportService.fetchAirport(arrivalAirportCode); // check if exists
+        final LocalDateTime atStartOfDay = departureDate.atStartOfDay();
+        final LocalDateTime atEndOfDay = departureDate.atTime(23, 59, 59);
+        final List<Flight> flights = flightRepository.findByDepartureDateTimeBetweenAndDepartureAirportCodeAndArrivalAirportCode(
+                atStartOfDay,
+                atEndOfDay,
+                departureAirportCode,
+                arrivalAirportCode
+        );
+        return mapFlightEntity2Dto(flights);
+    }
+
 }
