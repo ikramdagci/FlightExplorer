@@ -27,9 +27,10 @@ public class FlightController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    @Operation(summary = "Get all flights", description = "Retrieves a list of all available flights.")
-    public Collection<FlightDto> findAll() {
-        return flightService.findAll();
+    @Operation(summary = "Get flights", description = "Retrieves a list of all available flights with pagination support.")
+    public Collection<FlightDto> findAll(@RequestParam(defaultValue = "0") int page,
+                                         @RequestParam(defaultValue = "10") int size) {
+        return flightService.findAll(page, size);
     }
 
     @GetMapping("/{id}")

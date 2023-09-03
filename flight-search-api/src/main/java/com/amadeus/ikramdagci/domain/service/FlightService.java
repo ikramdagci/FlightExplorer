@@ -18,6 +18,9 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.Caching;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -52,8 +55,10 @@ public class FlightService {
     }
 
     @Cacheable("allFlightDtos")
-    public Collection<FlightDto> findAll() {
-        return mapFlightEntity2Dto(flightRepository.findAll());
+    public Collection<FlightDto> findAll(int page, int size) {
+        PageRequest pageable = PageRequest.of(page, size,Sort.by("id"));
+        final Page<Flight> flightPage = flightRepository.findAll(pageable);
+        return mapFlightEntity2Dto(flightPage.getContent());
     }
 
     public FlightDto findById(final Long id) {
