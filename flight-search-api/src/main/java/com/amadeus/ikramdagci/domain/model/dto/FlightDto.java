@@ -6,6 +6,7 @@ import lombok.Builder;
 import org.springframework.format.annotation.DateTimeFormat;
 
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Builder
@@ -18,4 +19,4 @@ public record FlightDto(
         @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
         LocalDateTime arrivalDateTime,
         MonetaryAmountWrapper price
-) {}
+) implements Serializable {}

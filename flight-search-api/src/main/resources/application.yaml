@@ -11,7 +11,11 @@ spring:
     password: 'postgres'
     username: postgres
     url: jdbc:postgresql://postgresqldb:5432/flights
-
+  data:
+    redis:
+      host: redis
+      port: 6379
+      ttl: 60
 mock:
   flight:
     api:

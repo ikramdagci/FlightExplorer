@@ -12,13 +12,10 @@ spring:
     username: postgres
     url: jdbc:postgresql://localhost:5432/flights
   data:
-    jpa:
-      repositories:
-        query:
-          enable-optimizations: false
     redis:
       host: localhost
       port: 6379
+      ttl: 60
 
 api:
   flight:

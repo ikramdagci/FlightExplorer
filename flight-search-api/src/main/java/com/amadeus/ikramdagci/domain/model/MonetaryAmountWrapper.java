@@ -8,6 +8,7 @@ import lombok.*;
 import org.javamoney.moneta.Money;
 
 import javax.money.MonetaryAmount;
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 /**
@@ -21,7 +22,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class MonetaryAmountWrapper {
+public class MonetaryAmountWrapper implements Serializable {
 
     @JsonProperty("amount")
     @Schema(example = "99.96")
