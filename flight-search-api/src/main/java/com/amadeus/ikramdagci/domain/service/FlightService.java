@@ -10,6 +10,7 @@ import com.amadeus.ikramdagci.domain.repository.FlightRepository;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.javamoney.moneta.Money;
+import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -19,6 +20,7 @@ import static com.amadeus.ikramdagci.util.EntityDtoMapper.mapFlightEntity2Dto;
 
 @Service
 @RequiredArgsConstructor
+@CacheConfig(cacheNames={"flights"})
 public class FlightService {
 
     private final FlightRepository flightRepository;

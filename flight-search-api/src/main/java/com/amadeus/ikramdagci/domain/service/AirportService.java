@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
@@ -39,6 +40,10 @@ public class AirportService {
         airportRepository.deleteById(id);
     }
 
+    @Caching(evict = {
+            @CacheEvict(key = "#id"),
+            @CacheEvict(value = "allAirportDtos", allEntries = true)
+    })
     public AirportDto update(final Long id, final CreateAirportRequest request) {
         final Airport airport = self.fetchAirport(id);
         airport.setCity(request.getCity());
@@ -51,9 +56,8 @@ public class AirportService {
         return mapAirportEntity2Dto(airportRepository.findAll());
     }
 
-    @Cacheable
     public AirportDto findById(final Long id) {
-        final Airport airport = fetchAirport(id);
+        final Airport airport = self.fetchAirport(id);
         return mapAirportEntity2Dto(airport);
     }
 
