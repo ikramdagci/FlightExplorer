@@ -92,7 +92,7 @@ This project utilizes the following technologies:
 
 ## Usage
 
-- Use the Flight Search API to perform flight searches and retrieve flight information.
+- Use the Flight Search API to perform flight searches and retrieve flight information. You can explore and interact with the API using [Swagger UI](http://localhost:8080/swagger-ui/index.html).
 
 - The Mock API Server can be adapted to simulate different behaviors and responses that your main API may depend on.
 
