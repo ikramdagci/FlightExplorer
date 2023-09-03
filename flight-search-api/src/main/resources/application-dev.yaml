@@ -23,6 +23,13 @@ api:
     fetch:
       count: 20
       cron : 0 */1 * * * *
+  contact:
+    author:
+      name: "Ikram Dagci"
+      email: ikramdgc@gmail.com
+      website: https://www.linkedin.com/in/ikramdagci/
+  description: "manage flight-related information, including flights and airports, and perform flight searches."
+
 
 logging:
   level:

@@ -15,7 +15,7 @@ const generateRandomDateInRange = () => {
   const now = new Date();
   const startDate = new Date(now);
   const endDate = new Date(now);
-  endDate.setDate(now.getDate() + (365 * 3)); 
+  endDate.setDate(now.getDate() + (365)); 
   const randomDate = chance.date({ min: startDate, max: endDate });
   return randomDate;
 };

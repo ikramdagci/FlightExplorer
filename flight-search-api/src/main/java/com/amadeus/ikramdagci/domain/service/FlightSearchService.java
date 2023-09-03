@@ -1,5 +1,6 @@
 package com.amadeus.ikramdagci.domain.service;
 
+import com.amadeus.ikramdagci.domain.ex.FlightNotFoundException;
 import com.amadeus.ikramdagci.domain.model.dto.FlightDto;
 import com.amadeus.ikramdagci.domain.model.request.FlightSearchCriteria;
 import com.amadeus.ikramdagci.domain.model.response.FlightSearchResponse;
@@ -23,7 +24,7 @@ public class FlightSearchService {
         Collection<FlightDto> returnFlights = Collections.emptyList();
         new BeanPropertyBindingResult(sc,"SearchCriteria");
         if(Objects.nonNull(sc.getReturnDate())){
-            if(sc.getReturnDate().isBefore(sc.getDepartureDate())) throw new RuntimeException("Return date cannot be before the departure date.");
+            if(sc.getReturnDate().isBefore(sc.getDepartureDate())) throw new FlightNotFoundException("Return date cannot be before the departure date."); // TODO: 3.09.2023 Create validation for this case
             returnFlights = flightService.findFlights(sc.getArrivalAirportCode(), sc.getDepartureAirportCode(), sc.getReturnDate());
         }
         return new FlightSearchResponse(departureFlights,returnFlights);
