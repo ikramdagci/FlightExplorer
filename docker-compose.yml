@@ -18,11 +18,11 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_DB=flights
     volumes:
-      - ./init_db.sql:/docker-entrypoint-initdb.d/init_db.sql # Bu satırı ekledik
+      - ./init_db.sql:/docker-entrypoint-initdb.d/init_db.sql
   mock-flight-api:
     container_name: docker-mock-flight-api
     build:
-      context: ./mock-flight-api # Express.js uygulamanızın bulunduğu dizini belirtin
+      context: ./mock-flight-api
     ports:
       - "3000:3000"
     depends_on:

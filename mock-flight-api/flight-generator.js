@@ -41,13 +41,11 @@ const generateFlightData = () => {
   };
 };
 
-// /flight endpoint'i
 app.get('/flight', (req, res) => {
   const flight = generateFlightData();
   res.json(flight);
 });
 
-// /flights endpoint'i
 app.get('/flights/:numberOfFlights', (req, res) => {
   const numberOfFlights = parseInt(req.params.numberOfFlights, 10);
   const flightsData = [];
