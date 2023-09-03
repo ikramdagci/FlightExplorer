@@ -8,6 +8,8 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Repository
 public interface FlightRepository extends JpaRepository<Flight,Long> {
     @Modifying
@@ -15,6 +17,8 @@ public interface FlightRepository extends JpaRepository<Flight,Long> {
     @Query("DELETE FROM Flight f WHERE f.arrivalAirport.id = :airportId OR f.departureAirport.id = :airportId")
     void deleteByDepartureOrArrivalAirportId(@Param("airportId") Long airportId);
 
+    @Query("SELECT f FROM Flight f WHERE f.arrivalAirport.id = :airportId OR f.departureAirport.id = :airportId")
+    List<Flight> findIdsByAirport(@Param("airportId") Long airportId);
 
 
 }

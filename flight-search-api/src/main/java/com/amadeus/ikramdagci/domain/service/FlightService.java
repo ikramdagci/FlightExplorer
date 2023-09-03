@@ -1,6 +1,7 @@
 package com.amadeus.ikramdagci.domain.service;
 
 import com.amadeus.ikramdagci.domain.entity.Airport;
+import com.amadeus.ikramdagci.domain.entity.BaseEntity;
 import com.amadeus.ikramdagci.domain.entity.Flight;
 import com.amadeus.ikramdagci.domain.ex.FlightNotFoundException;
 import com.amadeus.ikramdagci.domain.model.CreateFlightPayload;
@@ -9,6 +10,7 @@ import com.amadeus.ikramdagci.domain.model.request.CreateFlightRequest;
 import com.amadeus.ikramdagci.domain.repository.FlightRepository;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.javamoney.moneta.Money;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
@@ -23,16 +25,17 @@ import java.util.List;
 
 import static com.amadeus.ikramdagci.util.EntityDtoMapper.mapFlightEntity2Dto;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
-@CacheConfig(cacheNames={"flights"})
+@CacheConfig(cacheNames = {"flights"})
 public class FlightService {
 
     private final FlightRepository flightRepository;
     private final AirportService airportService;
     private FlightService self; // Self-injecting to utilize cached methods within this service
 
-    @CacheEvict(value = "allFlightDtos",allEntries = true)
+    @CacheEvict(value = "allFlightDtos", allEntries = true)
     public FlightDto create(final CreateFlightPayload request) {
         final Airport departureAirport = airportService.fetchAirport(request.getDepartureAirportCode());
         final Airport arrivalAirport = airportService.fetchAirport(request.getArrivalAirportCode());
@@ -40,8 +43,8 @@ public class FlightService {
         return mapFlightEntity2Dto(flightRepository.save(flight));
     }
 
-    @CacheEvict(value = "allFlightDtos",allEntries = true)
-    public Collection<FlightDto> create(final List<? extends CreateFlightPayload> flightPayloads){
+    @CacheEvict(value = "allFlightDtos", allEntries = true)
+    public Collection<FlightDto> create(final List<? extends CreateFlightPayload> flightPayloads) {
         final List<Flight> flights = buildFlightEntity(flightPayloads);
         return mapFlightEntity2Dto(flightRepository.saveAll(flights));
     }
@@ -63,7 +66,10 @@ public class FlightService {
         flightRepository.deleteById(id);
     }
 
-    public void deleteByDepartureOrArrivalAirportId(Long airportId){
+
+    @CacheEvict(value = "allFlightDtos", allEntries = true)
+    public void deleteByDepartureOrArrivalAirportId(Long airportId) {
+        onAirportUpdated(airportId);
         flightRepository.deleteByDepartureOrArrivalAirportId(airportId);
     }
 
@@ -105,6 +111,18 @@ public class FlightService {
                     return buildFlightEntity(payload, departureAirport, arrivalAirport);
                 })
                 .toList();
+    }
+
+    public void onAirportUpdated(Long airportId) {
+        flightRepository.findIdsByAirport(airportId).stream()
+                .map(BaseEntity::getId)
+                .toList()
+                .forEach(self::evict);
+    }
+
+    @CacheEvict
+    public void evict(Long id) {
+        log.debug("Deleted flight cache for id:{}", id);
     }
 
     @Autowired

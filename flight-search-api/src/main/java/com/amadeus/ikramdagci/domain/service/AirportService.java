@@ -33,7 +33,11 @@ public class AirportService {
         final Airport airport = airportRepository.save(Airport.builder().city(request.getCity()).code(request.getCode()).build());
         return mapAirportEntity2Dto(airport);
     }
-    @CacheEvict
+    @Caching(evict = {
+            @CacheEvict(key = "#id"),
+            @CacheEvict(value = "allAirportDtos", allEntries = true),
+            @CacheEvict(value = "allFlightDtos", allEntries = true),
+    })
     public void delete(Long id){
         if(!airportRepository.existsById(id)) throw new AirportNotFoundException(id);
         flightService.deleteByDepartureOrArrivalAirportId(id);
@@ -42,12 +46,14 @@ public class AirportService {
 
     @Caching(evict = {
             @CacheEvict(key = "#id"),
-            @CacheEvict(value = "allAirportDtos", allEntries = true)
+            @CacheEvict(value = "allAirportDtos", allEntries = true),
+            @CacheEvict(value = "allFlightDtos", allEntries = true),
     })
     public AirportDto update(final Long id, final CreateAirportRequest request) {
         final Airport airport = self.fetchAirport(id);
         airport.setCity(request.getCity());
         airport.setCode(request.getCode());
+        flightService.onAirportUpdated(id);
         return mapAirportEntity2Dto(airportRepository.save(airport));
     }
 
