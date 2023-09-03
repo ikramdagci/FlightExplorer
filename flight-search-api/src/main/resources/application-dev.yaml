@@ -22,6 +22,7 @@ api:
     url: http://localhost:3000
     fetch:
       count: 20
+      cron : 0 */1 * * * *
 
 logging:
   level:
