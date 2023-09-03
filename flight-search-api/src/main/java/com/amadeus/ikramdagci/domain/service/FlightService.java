@@ -51,6 +51,10 @@ public class FlightService {
     }
 
 
+    public void deleteByDepartureOrArrivalAirportId(Long airportId){
+        flightRepository.deleteByDepartureOrArrivalAirportId(airportId);
+    }
+
     public FlightDto update(final Long id, final CreateFlightRequest request) {
         final Flight flight = fetchFlight(id);
         flight.setDepartureAirport(airportService.fetchAirport(request.getDepartureAirportCode()));
