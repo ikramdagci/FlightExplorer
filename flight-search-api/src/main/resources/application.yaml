@@ -16,13 +16,20 @@ spring:
       host: redis
       port: 6379
       ttl: 60
+
 api:
   flight:
-    api:
-      url: http://mock-flight-api:3000
-      fetch:
-        count: 50
-        cron : 0 */3 * * * *
+    url: http://mock-flight-api:3000
+    fetch:
+      count: 20
+      cron : 0 */3 * * * *
+  contact:
+    author:
+      name: "Ikram Dagci"
+      email: ikramdgc@gmail.com
+      website: https://www.linkedin.com/in/ikramdagci/
+  description: "manage flight-related information, including flights and airports, and perform flight searches."
+
 
 logging:
   level:
