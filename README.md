@@ -76,6 +76,20 @@ spring:
 
 - The Mock API Server is located in the mock-flight-api directory. You can customize its routes and responses by editing the relevant JavaScript files.
 
+## Used Technologies
+
+This project utilizes the following technologies:
+
+- Docker
+- Java 17
+- Spring Boot 3.1.3
+- HTTP Interfaces
+- Hibernate ORM
+- PostgreSQL
+- Express.js
+- Redis
+- Lombok
+
 ## Usage
 
 - Use the Flight Search API to perform flight searches and retrieve flight information.
