@@ -125,7 +125,7 @@ Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 
 After obtaining the token, you can add it to relevant HTTP requests in the Swagger UI, enabling you to perform authorization-related tasks.
 
-
+![Authentication as admin](ui-authenticate.gif)
 
 ## Cleanup
 

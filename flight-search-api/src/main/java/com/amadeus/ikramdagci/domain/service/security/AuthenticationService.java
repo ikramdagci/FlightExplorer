@@ -30,6 +30,10 @@ public class AuthenticationService {
                 .password(passwordEncoder.encode(registerRequest.getPassword()))
                 .role(Role.USER)
                 .build();
+        return register(user);
+    }
+
+    public AuthenticationResponse register(User user) {
         userRepository.save(user);
         var jwtToken = jwtService.generateToken(user);
         return new AuthenticationResponse(jwtToken);

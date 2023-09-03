@@ -3,6 +3,7 @@ package com.amadeus.ikramdagci.config.security;
 import com.amadeus.ikramdagci.domain.entity.user.Role;
 import com.amadeus.ikramdagci.domain.entity.user.User;
 import com.amadeus.ikramdagci.domain.repository.UserRepository;
+import com.amadeus.ikramdagci.domain.service.security.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -31,6 +32,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableMethodSecurity
 public class SecurityConfiguration {
     private JwtAuthenticationFilter jwtAuthFilter;
+    private AuthenticationService authenticationService;
     private final UserRepository repository;
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -69,23 +71,13 @@ public class SecurityConfiguration {
         return new BCryptPasswordEncoder();
     }
 
-    @Bean
-    public CommandLineRunner commandLineRunner(){
-        return args -> {
-            final User admin = User.builder()
-                    .firstname("admin")
-                    .lastname("admin")
-                    .email("admin@admin.com")
-                    .password(passwordEncoder().encode("admin"))
-                    .role(Role.ADMIN)
-                    .build();
-            repository.save(admin);
-        };
-    }
     @Autowired
     public void setJwtAuthFilter(@Lazy final JwtAuthenticationFilter jwtAuthFilter) {
         this.jwtAuthFilter = jwtAuthFilter;
     }
 
-
+    @Autowired
+    public void setAuthenticationService(@Lazy final AuthenticationService authenticationService) {
+        this.authenticationService = authenticationService;
+    }
 }

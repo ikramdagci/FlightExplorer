@@ -57,12 +57,11 @@
 		CONSTRAINT t_user_role_check CHECK (role::text = ANY (ARRAY['USER'::character varying, 'ADMIN'::character varying]::text[]))
 	)
 
-TABLESPACE pg_default;
+	TABLESPACE pg_default;
 
-ALTER TABLE IF EXISTS public.t_user
-    OWNER to postgres;
+	ALTER TABLE IF EXISTS public.t_user
+		OWNER to postgres;
 
-TABLESPACE pg_default;
 
 ALTER TABLE IF EXISTS public.t_user
     OWNER to postgres;
@@ -124,6 +123,12 @@ ALTER TABLE IF EXISTS public.t_user
 
 
 -- Initial Data
+	--Admin User
+	INSERT INTO public.t_user(
+		id, email, firstname, lastname, password, role)
+	VALUES 
+		(DEFAULT, 'admin@admin.com', 'admin', 'admin', '$2a$10$Soxr/jIzfEdzlhqKm9rw0e/S1Z3PuYIKBPqwbrlsqBJIHjVskdbWu', 'ADMIN');
+
     -- Airports
 
     INSERT INTO public.t_airport(
