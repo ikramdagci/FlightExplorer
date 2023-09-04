@@ -44,7 +44,7 @@ Before you begin, ensure you have the following requirements:
 
 ## Configuration
 
-- The Flight Search API uses a PostgreSQL database for data storage. You can modify the database configuration in the application.properties file within the flight-search-api directory.
+- The Flight Search API uses a PostgreSQL database for data storage. You can modify the database configuration in the `application.yaml` file within the flight-search-api directory.
 
 - **Scheduled Cron Period**: You can specify the scheduled cron period for sending requests to the Mock API Server. Edit the `application.yaml` file and set the `api.flight.fetch.cron` property. For example, to run the task every 3 minutes:
 
